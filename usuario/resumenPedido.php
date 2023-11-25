@@ -182,7 +182,8 @@
                             $detallePedido = $detallePedido . "<td>{$fila->getUnidades()}</td>"; 
                             $precio = number_format(round($fila->getPrecio(), 2),2, ",", ".");
                             $detallePedido = $detallePedido . "<td style='text-align: right;'>{$precio} €</td>"; 
-                            $total = round($fila->getUnidades()*$fila->getPrecio(),2);
+                            //$total = round($fila->getUnidades()*$fila->getPrecio(),2);
+                            $total = round($fila->getPrecio(),2);
                             $total = number_format(round($total, 2),2, ",", ".");
                             $detallePedido = $detallePedido . "<td style='text-align: right;'>{$total} €</td>"; 
                             $detallePedido = $detallePedido . "</tr>";

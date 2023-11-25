@@ -93,6 +93,7 @@ if (isset($_SESSION["carrito"]) && count($_SESSION['carrito']) != 0) {
                             $subtotal = $unidades * $pvpConDto;
                         }
                         else {
+                            //$pvpConDto = $producto["precio"];
                             $subtotal = $unidades * $producto["precio"];
                         }
                 	
