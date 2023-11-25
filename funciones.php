@@ -143,8 +143,8 @@
                                             <p class='text-justify'>C/ Fuerteventura, nº 145</p>
                                             <p class='text-justify'>48001 - Madrid, España</p><br>
                                             <h6 class='h6 text-justify text-info'><strong>Detalles de Contacto del Centro</strong></h6><hr>
-                                            <p class='text-justify'>Email: <strong>info@beautyandshop.net</strong></p></p>
-                                            <p class='text-justify'>Teléfono: <strong>+34 676 312 36</p></p>
+                                            <p class='text-justify'>Email: <strong><a href='mailto:info@beautyandshop.net'>info@beautyandshop.net</a></strong></p></p>
+                                            <p class='text-justify'>Teléfono: <strong><a href='tel:676312536'>676 312 536</a></p></p>
                                             <br><hr><h3 class='h3 text-center text-success'>GRACIAS POR CONFIAR EN BEAUTY AND SHOP</h3><hr><br></div><div class='col-xs-12 col-sm-2 col-md-2'></div></div>";
 
             // MANDAMOS EL EMAIL CON LOS DATOS DE LA CITA.
