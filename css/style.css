@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  /*display: flex;*/
+  align-items: center;
+  padding: 0 10px;
+  justify-content: center;
+  min-height: 100vh;
+  background: #eeeeee;
+}
+
+/*Links*/
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+/*Título*/
+.titulo {
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  border: none;
+  font: normal 38px / normal "Warnes", Helvetica, sans-serif;
+  color: rgba(255, 255, 255, 1);
+  text-decoration: normal;
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  white-space: pre;
+  text-shadow: 0 0 10px rgb(255, 0, 0), 0 0 20px rgba(255, 0, 0),
+    0 0 30px rgba(255, 0, 0), 0 0 40px #727272, 0 0 70px #727272,
+    0 0 80px #4e4e4e, 0 0 100px #2b2b2b;
+  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.titulo:hover {
+  text-shadow: 0 0 10px rgb(27, 27, 27), 0 0 20px rgba(27, 27, 27),
+    0 0 30px rgba(27, 27, 27), 0 0 40px #000000, 0 0 70px #000000,
+    0 0 80px #000000, 0 0 100px #000000;
+}
+
+/*Envoltorio del calendario*/
+.envoltorio {
+  /*width: 450px;*/
+  
+  margin: 0 auto;
+  width: 70%;
+  background: #fff; 
+  border-radius: 10px;
+  box-shadow: 5px 5px 40px;
+  font-size: 18px;
+}
+
+.envoltorio header {
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+
+/*Iconos*/
+header .iconos {
+  display: flex;
+}
+
+header .iconos span {
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #000000;
+  text-align: center;
+  line-height: 38px;
+  font-size: 2rem;
+  user-select: none;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.iconos span:last-child {
+  margin-right: -10px;
+}
+
+header .iconos span:hover {
+  background: #f2f2f2;
+}
+
+/*Fecha actual*/
+header .fecha-actual {
+  font-size: 1.45rem;
+  font-weight: bold;
+}
+
+/*Días*/
+.calendario .dias li {
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+
+.dias li.inactive {
+  color: #aaa;
+}
+
+.dias li.active {
+  color: #fff;
+}
+
+.dias li::before {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dias li.active::before {
+  background: #9b59b6;
+}
+
+.dias li:not(.active):hover::before {
+  background: #f2f2f2;
+  
+}
+
+.domingo {
+  color: rgb(255, 0, 0) !important;
+}
+
+/*calendario*/
+.calendario {
+  padding: 20px;
+}
+
+.calendario ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+
+.calendario .dias {
+  margin-bottom: 20px;
+}
+
+.calendario li {
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 2.07rem;
+}
+
+.calendario .semana li {
+  font-weight: 500;
+  cursor: default;
+  background-color: #cecece;
+  border-radius: 10%;
+  border: 1px solid #000;
+}
+

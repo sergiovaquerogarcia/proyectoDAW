@@ -1,0 +1,86 @@
+.tablaDatos{ 
+	margin: 0 auto;
+	  width: 94%; 
+	  border-collapse: collapse; 
+}
+
+.tablaDatos th { 
+	  background: black; 
+	  color: white; 
+	  font-weight: bold; 
+	width:25%;
+	border: 1px solid orange; 
+}
+
+.tablaDatos td, th { 
+	padding: 6px; 
+	border: 1px solid orange; 
+	text-align: left; 
+	font-size: 14px;
+}
+
+h3 {
+	padding-left: 50px;
+	color: orange;
+}
+
+div.divTablaDatos {
+	text-align: center;
+}
+
+div.divTablaDatos a {
+	text-decoration: none;
+	color: black;
+}
+
+.tablaDatos td {
+	font-weight: bold;
+}
+
+.mybtn {
+	background-color: white;
+	border: 1px solid orange;
+	}
+
+.mybtn:hover {
+	background-color: orange;
+}
+
+div.divTablaDatos a:hover {
+	text-decoration: none;
+	color: white;
+}
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	.tablaDatos{ 
+		margin: 0 auto;
+		width: 100%; 
+		border-collapse: collapse; 
+	}
+	/* Force table to not be like tables anymore */
+	.tablaDatos table, thead, tbody, th, td, tr { 
+		display: block; 
+		width: 100%; 
+	}
+
+	.tablaDatos th { 
+		width: 100%;
+	}
+
+	.tablaDatos tr { 
+		border: 1px solid orange; 
+	}
+
+	h3 {
+		padding-left: 20px;
+		color: orange;
+	}
+
+	div.divTablaDatos {
+		text-align: center;
+	}
+	
+}  
