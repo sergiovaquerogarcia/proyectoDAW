@@ -38,14 +38,14 @@
             //Comprobamos el tipo de Usuario que se ha logueado: Usuario, Administrador, Editor
             if ($tipoUsuario == 1) {
                 //header ("Location: admin/zonaAdministrador.php?tipoUsuario=1&dni=" . $dni);
-                header ("Location:index.php");
+                header ("Location:/beautyandshop/index.php");
             }
             else if ($tipoUsuario == 3) {
                 //header ("Location: usuario/zonaUsuario.php?tipoUsuario=3&dni=" . $dni);
-                header ("Location:index.php");
+                header ("Location:/beautyandshop/index.php");
             }
             else if ($tipoUsuario == 2) {
-                header ("Location:index.php?");
+                header ("Location:/beautyandshop/index.php?");
             }
     
     }

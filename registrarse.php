@@ -157,6 +157,7 @@
                 $activo = 1;
             }
             addUsuario ($tipo, $cp, strtoupper($dni), $clave1, $email, strtoupper($nombre), strtoupper($direccion), strtoupper($poblacion), strtoupper($provincia), $telefono, $tipoUsuario, $activo);
+            enviarEmailBienvenida(strtoupper($nombre), $email);
         }
     }
 ?>

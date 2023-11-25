@@ -1672,6 +1672,65 @@
         return $datosUsuario;
     }
 
+    function enviarEmailBienvenida($nombre, $email_to) {
+         $email_from = "info@beautyandshop.net";
+         $email_subject = "Bienvenido a Beauty And Shop";
+         $email_message =  "<html><head><meta charset='utf-8'></head>
+         <body>
+             <h2 class='text-left'>Bienvenid@ a Beauty And Shop</h2>
+             <div> Estimado/a usuario <strong>" . $nombre . "</strong>:<br>
+                 Te confirmamos que tu nuevo usuario se ha creado correctamente en nuestra web. A continuación, puedes ver los detalles:
+             </div>
+             <div style='background-color:gris; padding: 15px;'>
+                 <ul>
+                     <li><strong>Email: </strong>" . $email_to . "</li>
+                     <li><strong>Contraseña: </strong>La elegida en el alta. Podrá cambiarla desde la opción de <strong>Olvidé mi contraseña</strong></li>
+                 </ul>
+             </div>
+             <div>
+                 Para cualquier aclaración o información adicional, estamos a tu disposición a través del teléfono <strong><a href='tel:676312536'>676 312 536</a></strong>
+                  o en <strong><a href='mailto:info@beautyandshop.net'>info@beautyandshop.net</a></strong>.<br><br>
+                 
+                 Un saludo,<br><br>
+                 
+                 El equipo de Beauty And Shop<br>
+                 
+
+             </div>
+             <br><hr>
+             <div style='background-color:gris; padding: 15px;'><strong>Gracias por la confianza depositada en nosotros.</strong>
+             </div>
+             <hr>    
+             
+         </body>
+           </html>";
+         
+         $headers = "MIME-Version: 1.0\r\n"; 
+         $headers .= "Content-type: text/html; charset=utf-8\r\n"; 
+
+         //dirección del remitente 
+         $headers .= "From: Beauty And Shop <info@beautyandshop.net>\r\n"; 
+
+         //dirección de respuesta, si queremos que sea distinta que la del remitente 
+         $headers .= "Reply-To: info@beautyandshop.net\r\n"; 
+
+         //ruta del mensaje desde origen a destino 
+         $headers .= "Return-path: info@beautyandshop.net\r\n"; 
+
+         //direcciones que recibián copia 
+         $headers .= "Cc: info@beautyandshop.net\r\n"; 
+
+         if(@mail($email_to, $email_subject, $email_message, $headers)) {
+             echo "<div style='color:white;' class='smsOk'><b>Sus DATOS de RESERVA se han enviado correctamente.</b></div><br>";
+         }
+         else {
+             echo "<div style='color:white;' class='smsError'><b>NO se han podido enviar sus DATOS de RESERVA correctamente.</b></div><br>";	    
+         }
+    }
+
+
+    /******************************************* FUNCIONES MANTENIMIENTO DE PRODUCTOS********************************* */
+
     function mostrarProductos($datosProductos, $tipo){
         
         $datosProducto = "<h1>CATÁLOGO PRODUCTOS</h1>";
