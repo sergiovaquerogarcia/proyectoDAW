@@ -383,6 +383,7 @@
                             ?>
                                 <a href="/beautyandshop/index.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>
                             <?php
+                            
                             }
                             ?>
                     <?php
