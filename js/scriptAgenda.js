@@ -22,7 +22,7 @@ const meses = [
     "Diciembre",
 ];
 
-const renderCalendar = () => {
+const generarCalendario = () => {
     let primerDiaMes = new Date(currYear, currMonth, 0).getDay(), // obtenemos el primer día del mes. El 0 hace que el primer día de la semana sea lunes
         ultimaFechaMes = new Date(currYear, currMonth + 1, 0).getDate(), // obtenemos la última fecha del mes
         ultimoDiaMes = new Date(currYear, currMonth, ultimaFechaMes).getDay(), // obtenemos el último día del mes
@@ -45,8 +45,7 @@ const renderCalendar = () => {
                 currYear === new Date().getFullYear()
                 ? "active"
                 : "";
-	//alert("I: " + i);
-        if (new Date(currYear, currMonth, i).getDay() == 0) {
+	    if (new Date(currYear, currMonth, i).getDay() == 0) {
             liTag += `<li class="inactive">${i}</li>`;
         }
         else {
@@ -64,7 +63,7 @@ const renderCalendar = () => {
     TagDias.innerHTML = liTag;
 };
 
-renderCalendar();
+generarCalendario();
 
 prevNextIcon.forEach((icon) => {
     // iconos anterior y siguiente
@@ -82,11 +81,6 @@ prevNextIcon.forEach((icon) => {
         } else {
             date = new Date(); // pasar la fecha actual como valor de fecha
         }
-        renderCalendar(); // llamamos a la función renderCalendar
+        generarCalendario(); // llamamos a la función renderCalendar
     });
 });
-
-// función para abrir el popup al hacer clic sobre un día
-function popUp(URL) {
-    window.open(URL, 'Día', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=500,height=1000,left=390,top=50');
-}
