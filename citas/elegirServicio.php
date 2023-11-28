@@ -95,7 +95,7 @@
     <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleCitas.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-    <script src="/beautyandshop/js/botonUp.js"></script>
+    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
 </head>
 <body>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up fa-6" aria-hidden="true"></i></button>
@@ -368,6 +368,23 @@
                     <div class="text-center">
                         <button class="btn btn-success text-center" type="submit" name="enviar" value="Coger Cita">COGER CITA</button>
                         <button class="btn btn-warning text-center" type="reset" name="borrar" value="Limpiar">BORRAR DATOS</button>
+                        <?php
+                            if ($tipoUsuario == 1 || $tipo == 1) {
+                            ?> 
+                                <a href="/beautyandshop/index.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>
+                            <?php
+                            }
+                            elseif ($tipoUsuario == 2 || $tipo == 2) {
+                            ?>
+                                <a href="/beautyandshop/index.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>
+                            <?php
+                            }
+                            else if ($tipoUsuario == 3 || $tipo == 3) {
+                            ?>
+                                <a href="/beautyandshop/index.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>
+                            <?php
+                            }
+                            ?>
                     <?php
                     }
                     ?> 
@@ -375,6 +392,7 @@
                 <?php
                 }
                 ?>
+                
             </div>
             
             

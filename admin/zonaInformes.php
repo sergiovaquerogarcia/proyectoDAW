@@ -18,6 +18,10 @@
         $mes = strtoupper($_REQUEST["mes"]);
     }
 
+    if (isset($_REQUEST["fecha"])) {
+        $fecha = strtoupper($_REQUEST["fecha"]);
+    }
+
     
 ?>
 
@@ -47,12 +51,11 @@
         <!-- Hojas de ESTILOS personalizadas-->
         <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
         <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-        <script src="/beautyandshop/js/botonUp.js"></script>
+        <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
         <style>
             div.formularioBuscar {
                 margin: 0 auto;
                 padding-top: 25px;
-                /*margin-left: 25px;*/
             }
         </style>
     </head>
@@ -77,6 +80,7 @@
                     <div class="text-center menuCategorias">
                         <a href="/beautyandshop/admin/zonaInformes.php?informe=1"><button type="button" class="btn btn-warning text-center">Productos + Vendidos</button></a>
                         <a href="/beautyandshop/admin/zonaInformes.php?informe=2"><button type="button" class="btn btn-warning text-center">Total Ventas por Meses</button></a>
+                        <a href="/beautyandshop/admin/zonaInformes.php?informe=8"><button type="button" class="btn btn-warning text-center">Total Cierres por Meses</button></a>
                         <a href="/beautyandshop/admin/zonaInformes.php?informe=4"><button type="button" class="btn btn-warning text-center">Categorias Baja</button></a>
                         <a href="/beautyandshop/admin/zonaInformes.php?informe=5"><button type="button" class="btn btn-warning text-center">Productos Baja</button></a>
                         <a href="/beautyandshop/admin/zonaInformes.php?informe=6"><button type="button" class="btn btn-warning text-center">Usuarios Baja</button></a>
@@ -90,7 +94,14 @@
                 <div class="formularioBuscar col-sm-8 text-center">
 		            <form class="form-inline my-2 my-lg-0" method="post" action="/beautyandshop/admin/zonaInformes.php?informe=3">
       			        <input class="form-control mr-sm-2" type="text" name="mes" required value="<?php if(isset($mes)) echo $mes ?>"><br>
-      			        <button class="btn btn-outline-warning my-2 my-sm-0 text-center" type="submit" name="enviar" value="Total Ventas por Mes">TOTAL VENTAS POR MESES</button>
+      			        <button class="btn btn-outline-warning my-2 my-sm-0 text-center" type="submit" name="enviar" value="Total Ventas por Mes">TOTAL VENTAS MES</button>
+                    </form>
+	            </div>
+
+                <div class="formularioBuscar col-sm-8 text-center">
+		            <form class="form-inline my-2 my-lg-0" method="post" action="/beautyandshop/admin/zonaInformes.php?informe=7">
+      			        <input class="form-control mr-sm-2" type="text" name="fecha" required value="<?php if(isset($fecha)) echo $fecha ?>"><br>
+      			        <button class="btn btn-outline-warning my-2 my-sm-0 text-center" type="submit" name="enviar" value="Cierre Caja">CIERRE DÍA</button>
                     </form>
 	            </div>
     
@@ -179,6 +190,7 @@
                                 echo "</tr>";
                             }
                             echo"</tbody></table></div>";
+                            
                         }
                         else if ($informe == 4) {
                             $cnn = conectar_db();
@@ -266,6 +278,62 @@
                                 echo "<td>{$fila['telefono']} </td>";
                                 echo "<td>{$fila['email']} </td>";
                                 
+                                echo "</tr>";
+                            }
+                            echo"</tbody></table></div>";
+                        }
+                        else if ($informe == 7) {
+
+                            // MONTAMOS EL FORMATO DE LA FECHA PARA BUSCARLA EN LA TABLA.
+                            $array = explode("/", $fecha);
+                            $diaAux = intval($array[0]);
+                            $mesAux = intval($array[1]);
+                            $anyoAux = intval($array[2]);
+                            $fechaBuscar = $anyoAux . "-" . $mesAux . "-" . $diaAux;
+                            
+                            $cnn = conectar_db();
+                            $stmt = $cnn->prepare("SELECT fechaCita AS dia , SUM(total) AS Total
+                                                    FROM citas WHERE fechaCita LIKE '%$fechaBuscar%'
+                                                    GROUP BY dia
+                                                    ORDER BY dia ASC");
+                            $rows = $stmt->execute();
+                   
+                            echo "<h2>Cierre del día </h2>" ;
+                            echo "<div class='table-responsive'>";
+                            echo "<table>";
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>DÍA</th>";
+                            echo "<th>TOTAL IMPORTE</th>";
+                            echo "</tr></thead></tr><tbody>";
+                            while($fila = $stmt->fetch()) {
+                                echo "<tr>";
+                                echo "<td>{$fila['dia']}</td>"; 
+                                echo "<td>{$fila['Total']} €</td>"; 
+                                echo "</tr>";
+                            }
+                            echo"</tbody></table></div>";
+                        }
+                        else if ($informe == 8) {
+                            $cnn = conectar_db();
+                            $stmt = $cnn->prepare("SELECT MONTHNAME(fechaCita) AS Mes, SUM(total) AS Total
+                                                    FROM citas WHERE YEAR(fechaCita) = '2023'
+                                                    GROUP BY Mes
+                                                    ORDER BY Mes ASC");
+                            $rows = $stmt->execute();
+                   
+                            echo "<h2>Listado Cierres Caja por Meses</h2>";
+                            echo "<div class='table-responsive'>";
+                            echo "<table>";
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th>MES</th>";
+                            echo "<th>IMPORTE</th>";
+                            echo "</tr></thead></tr><tbody>";
+                            while($fila = $stmt->fetch()) {
+                                echo "<tr>";
+                                echo "<td>{$fila['Mes']}</td>"; 
+                                echo "<td>{$fila['Total']} €</td>"; 
                                 echo "</tr>";
                             }
                             echo"</tbody></table></div>";

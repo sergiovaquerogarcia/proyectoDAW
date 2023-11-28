@@ -139,7 +139,7 @@
     <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleCitas.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-    <script src="/beautyandshop/js/botonUp.js"></script>
+    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
 </head>
 <body>
     <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up fa-6" aria-hidden="true"></i></button>
