@@ -132,7 +132,7 @@
             <h6><?php echo $nombre ?></h6>
             <br/> 
             <!--<a class="ov-btn-grow-box" href="/beautyandshop/admin/micuenta.php?tipoUsuario=1&dni=<?php //echo $dni ?>">MI CUENTA</a>-->
-            <a class="ov-btn-grow-box" href="/beautyandshop/admin/micuenta.php">MI CUENTA</a>
+            <!--<a class="ov-btn-grow-box" href="/beautyandshop/admin/micuenta.php">MI CUENTA</a>-->
             <a class="ov-btn-grow-box"class="ov-btn-grow-box" href="/beautyandshop/admin/zonaCategorias.php">CATEGORIAS</a>
             <a class="ov-btn-grow-box"href="/beautyandshop/admin/zonaProductos.php">PRODUCTOS</a>
             <a class="ov-btn-grow-box"href="/beautyandshop/admin/pedidos.php">PEDIDOS</a>

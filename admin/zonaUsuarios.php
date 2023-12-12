@@ -100,7 +100,7 @@
                 
                 $datosUsuarios = [];
                 $datosUsuarios = llenarArray($ordenar);
-                echo mostrarUsuarios($datosUsuarios, $tipoUsuario);
+                echo mostrarUsuarios($datosUsuarios, $tipoUsuario, $cusu);
                 ?>
                 <br>
             </div>

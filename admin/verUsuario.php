@@ -61,17 +61,17 @@
 
     <section class="container-fluid">
         <div class="row">
-           <div class="col-sm-12 col-md-12 col-lg-2">
-           <?php include($_SERVER['DOCUMENT_ROOT'] . "/beautyandshop/plantillas/menu-left.php"); ?>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-8">
+           <!--<div class="col-sm-12 col-md-12 col-lg-2">
+           <?php //include($_SERVER['DOCUMENT_ROOT'] . "/beautyandshop/plantillas/menu-left.php"); ?>
+            </div>-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
                 <?php
                     //$tipoUsuario = 3;
                     echo mostrarUsuario($usuarioVer, $tipoUsuario);
                 ?>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-2">
-                <?php include($_SERVER['DOCUMENT_ROOT'] . "/beautyandshop/plantillas/aside-right.php"); ?>
+            <!--<div class="col-sm-12 col-md-12 col-lg-2">
+                <?php //include($_SERVER['DOCUMENT_ROOT'] . "/beautyandshop/plantillas/aside-right.php"); ?>
             </div> 
         </div>
     </section>

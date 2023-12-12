@@ -14,9 +14,23 @@
     if (isset($_REQUEST["ct"])) {
         $codCita = $_REQUEST["ct"];
     }
+
+    if (isset($_REQUEST["p"])) {
+        $pagina = $_REQUEST["p"];
+    }
+    else {
+        $pagina = 0;
+    }
+
+    if (isset($_REQUEST["fecha"])) {
+        $fechaAux = $_REQUEST["fecha"];
+    }
+    else {
+        $pagina = 0;
+    }
       
     if(empty($_REQUEST["ct"]) == TRUE && ($tipo == 1 || $tipoUsuario == 1) ) {
-        header ("location:/beautyandshop/citas/gestionCitas.php");    
+       header ("location:/beautyandshop/citas/gestionCitas.php");    
     }
     else if(empty($_REQUEST["ct"]) == TRUE && ($tipo == 2 || $tipoUsuario == 2) ) {
         header ("location:/beautyandshop/citas/gestionCitas.php");    
@@ -190,10 +204,20 @@
 
 			
             if ($tipo == 1 || $tipoUsuario == 1) {
-                header("location:/beautyandshop/citas/gestionCitas.php?nombreusuario= " . $nombre);
+                if (isset($pagina) && $pagina == 1) {
+                    header("location:/beautyandshop/citas/verAgenda.php?fecha=" . $fechaAux . "&nombreusuario= " . $nombre);
+                }
+                else {
+                    header("location:/beautyandshop/citas/gestionCitas.php?nombreusuario= " . $nombre);
+                }
             }
             else if ($tipo == 2 || $tipoUsuario == 2) {
-                header ("location:/beautyandshop/citas/gestionCitas.php?nombreusuario= " . $nombre);    
+                if (isset($pagina) && $pagina == 1) {
+                    header("location:/beautyandshop/citas/verAgenda.php?fecha=" . $fechaAux . "&nombreusuario= " . $nombre);
+                }
+                else {
+                    header("location:/beautyandshop/citas/gestionCitas.php?nombreusuario= " . $nombre);
+                }  
             }
             else if ($tipo == 3 || $tipoUsuario == 3)  {
                 header ("location:/beautyandshop/usuario/miscitas.php?nombreusuario= " . $nombre); 
@@ -259,7 +283,12 @@
                         <button class="btn btn-success text-center" type="submit" name="eliminar" value="Eliminar">ELIMINAR</button>
                         <?php
                         if ($tipo == 1 || $tipoUsuario == 1 || $tipo == 2 || $tipoUsuario == 2) {
-                            echo '<a href="/beautyandshop/citas/gestionCitas.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>';
+                            if (isset($pagina) && $pagina == 1) {
+                                echo '<a href="/beautyandshop/citas/verAgenda.php?fecha=' . $fechaAux . '"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>';
+                            }
+                            else {
+                                echo '<a href="/beautyandshop/citas/gestionCitas.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>';
+                            }
                         }
                         else if ($tipo == 3 || $tipoUsuario == 3)  {
                             echo '<a href="/beautyandshop/usuario/miscitas.php"><button class="btn btn-danger text-center" type="button" value="cancelar">CANCELAR</button></a>';

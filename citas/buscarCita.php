@@ -43,7 +43,7 @@
     <!-- Hojas de ESTILOS personalizadas-->
     <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-    <script src="/beautyandshop/js/botonUp.js"></script>
+    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
 
     <style>
         div.formularioBuscar {

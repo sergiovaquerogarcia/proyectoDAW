@@ -4,10 +4,6 @@
         session_start();
     }
     
-    /*if(isset($_REQUEST["tipo"])) {
-        $tipo=$_REQUEST["tipo"];
-    }*/
-
     if(isset($_SESSION["tipo"])) {
         $tipo=$_SESSION["tipo"];
     }
@@ -75,7 +71,7 @@
     <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleCitas.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">   
+    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
     
 </head>
 
@@ -109,7 +105,7 @@
             }
             ?>
         
-            <div class="col-sm-12 col-md-9 col-lg-10">
+            <div class="ccol-sm-12 col-md-9 col-lg-10">
                 <div class="envoltorio"> <!-- envoltorio para el calendario -->
                     <div class="text-center" style="padding-top: 15px;padding-bottom: 25px;">
                         <h2  class="h2 neons2">Beauty And Shop</h2><hr><br>
@@ -154,7 +150,6 @@
         var codu = '<?php echo $codu;?>';
     </script>
     <script src="/beautyandshop/js/scriptAddCitaUsuario.js" defer></script>
-    <script src="/beautyandshop/js/botonUp.js"></script>
-        
+    <script src="/beautyandshop/js/botonUp.js"></script>   
 </body>
 </html>

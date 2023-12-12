@@ -4,12 +4,15 @@
 
     if (isset($_REQUEST["codu"])) {
         $cusu = $_REQUEST["codu"];
-    }
-    
+        
+        
+    } 
     else if (isset($_REQUEST["cusu"])) {
         $cusu = $_REQUEST["cusu"];
+         
+       
     }
-
+    
     if(isset($_REQUEST["tipo"])) {
         $tipo=$_REQUEST["tipo"];
     }
@@ -30,7 +33,7 @@
     $datosUsuarios = llenarArray(1);
 
     /* SACAMOS LOS DATOS DEL USUARIO QUE PIDE LA CITA */
-    $i=0;
+   $i=0;
     for($i=0;$i<count($datosUsuarios);$i++) {
         if($datosUsuarios[$i] -> getCodUsuario() == $cusu) {
             $nombre = $datosUsuarios[$i] -> getNombre();
@@ -48,9 +51,10 @@
         $anyo=$_REQUEST["anyo"];
         $fechaCita = date("d/m/Y", strtotime($anyo . '/' . $mes . "/" . $dia));
         //$fechaServicio = date("Y-m-d", strtotime($anyo . '-' . $mes . "-" . $dia));
+        if ($dia <= 9) {
+            $dia = "0" . $dia;
+        }
         $fechaServicio = $anyo . '-' . $mes . "-" . $dia;
-
-        //echo "LA FECHA ES: " . $fechaServicio;
     }
 
     $datosServicios = array ();
@@ -155,6 +159,7 @@
                             //$horaCita = "0:00";
                         }
                     if ($cont <> 0) {
+                        //echo "LA FECHA DEL SERVICIO ES:" . $fechaServicio;
                         $resumenCita = addCita ($cusu, $datosServicios, $fechaServicio, $horaCita);
                         $reservaCita = 1;
                         
@@ -203,6 +208,7 @@
 
                     <h2 class="h3 text-center text-warning">DATOS CITA</h2><hr><br>
                     <label for="nombre"><h5 class="h5 text-left text-warning">NOMBRE CLIENTE:</h5></label>
+
                     <input class="nombreCita" type="text" id="nombre" name="nombre" value="<?php if(isset($nombre)) echo $nombre ?>" disabled>
                     <label for="fecha"><h5 class="h5 text-left text-warning">FECHA CITA:</h5></label>
                     <input type="text" id="fecha" name="fecha" size="10" maxlength="10" value="<?php if(isset($fechaCita)) echo $fechaCita ?>" disabled>
@@ -389,14 +395,13 @@
                     <?php
                     }
                     ?> 
+                    </div>
                 </form>
                 <?php
                 }
                 ?>
                 
             </div>
-            
-            
         </div>
     </section><br><br>
     <div class="divider py-1"></div>

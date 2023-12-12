@@ -110,7 +110,7 @@
                                         $datosUsuarios[$i] -> setActivo($fila->getActivo());
                                         $i++;
                                     }       
-                                    echo mostrarUsuarios($datosUsuarios, $tipoUsuario);
+                                    echo mostrarUsuarios($datosUsuarios, $tipoUsuario, $cusu);
                                 }
                             }                                  
                         }

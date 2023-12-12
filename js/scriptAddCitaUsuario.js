@@ -34,8 +34,9 @@ const generarCalendario = () => {
         liTag += `<li class="inactive">${ultimaFechaMesPasado - i + 1}</li>`;
         
     }
-    for (let i = 1; i <= ultimaFechaMes; i++) {   
 
+    for (let i = 1; i <= ultimaFechaMes; i++) {   
+        
         // creamos el li de todos los días del mes actual
         // añadimos la clase como activa al li si el día, mes y año actuales coinciden. Se incluye en el día actual 
         let esHoy =
@@ -49,18 +50,49 @@ const generarCalendario = () => {
             liTag += `<li class="inactive">${i}</li>`;
         }
         else if (currYear > 2023 || currYear > 2024 || currYear > 2025 || currYear > 2026 || currYear > 2027 || currYear > 2028 )  {
-
-            liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?cusu=${cusu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            if (currMonth == 10 && i != 1) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else if (currMonth == 4 && i != 1) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else if (currMonth == 7 && i != 15) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else if (currMonth == 11 && i != 25) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else if (currMonth == 0 && (i != 1 && i != 6)) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else if( currMonth > 0 && currMonth != 11 && currMonth != 7 && currMonth != 4 && currMonth != 10) {
+                liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
+            }
+            else {
+                liTag += `<li class="inactive">${i}</li>`;
+            }
+            //liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
         }
-	
-        else if(i >= date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear())  {
+        else if(currMonth == 10 && currYear === new Date().getFullYear() && i== 1)  {
+            liTag += `<li class="inactive">${i}</li>`;
+        }
+        else if(currMonth == 4 && currYear === new Date().getFullYear() && i== 1)  {
+            liTag += `<li class="inactive">${i}</li>`;
+        }
+        else if(currMonth == 7 && currYear === new Date().getFullYear() && i== 15)  {
+            liTag += `<li class="inactive">${i}</li>`;
+        }
+        else if(currMonth == 11 && currYear === new Date().getFullYear() && i== 25)  {
+            liTag += `<li class="inactive">${i}</li>`;
+        }
+	    else if(i >= date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear())  {
             liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
         }
         else if (currMonth > new Date().getMonth() && currYear === new Date().getFullYear())  {
             liTag += `<li class="${esHoy}"><a href="/beautyandshop/citas/elegirServicio.php?codu=${codu}&dia=${i}&mes=${currMonth}&anyo=${currYear}">${i}</a></li>`;
         }
         else { 
-		    liTag += `<li class="inactive">${i}</li>`;
+           liTag += `<li class="inactive">${i}</li>`;
         }
     }
 

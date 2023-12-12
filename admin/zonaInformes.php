@@ -15,11 +15,11 @@
     }
 
     if (isset($_REQUEST["mes"])) {
-        $mes = strtoupper($_REQUEST["mes"]);
+        $mes = $_REQUEST["mes"];
     }
 
     if (isset($_REQUEST["fecha"])) {
-        $fecha = strtoupper($_REQUEST["fecha"]);
+        $fecha = $_REQUEST["fecha"];
     }
 
     
@@ -146,7 +146,7 @@
                         else if ($informe == 2) {
                             $cnn = conectar_db();
                             $stmt = $cnn->prepare("SELECT MONTHNAME(fechaPedido) AS Mes, SUM(total) AS Total
-                                                    FROM pedidos WHERE YEAR(fechaPedido) = '2023'
+                                                    FROM pedidos WHERE (YEAR(fechaPedido) = '2023' OR YEAR(fechaPedido) = '2024')
                                                     GROUP BY Mes
                                                     ORDER BY Mes ASC");
                             $rows = $stmt->execute();
@@ -170,7 +170,7 @@
                         else if ($informe == 3) {
                             $cnn = conectar_db();
                             $stmt = $cnn->prepare("SELECT MONTHNAME(fechaPedido) AS Mes, SUM(total) AS Total
-                                                    FROM pedidos WHERE YEAR(fechaPedido) = '2023' AND MONTH(fechaPedido) = $mes
+                                                    FROM pedidos WHERE (YEAR(fechaPedido) = '2023' OR YEAR(fechaPedido) = '2024') AND MONTH(fechaPedido) = $mes
                                                     GROUP BY Mes
                                                     ORDER BY Mes ASC");
                             $rows = $stmt->execute();
@@ -289,8 +289,11 @@
                             $diaAux = intval($array[0]);
                             $mesAux = intval($array[1]);
                             $anyoAux = intval($array[2]);
+                            if ($diaAux <= 9) {
+                                $diaAux = "0" . $diaAux;
+                            }
                             $fechaBuscar = $anyoAux . "-" . $mesAux . "-" . $diaAux;
-                            
+                                                        
                             $cnn = conectar_db();
                             $stmt = $cnn->prepare("SELECT fechaCita AS dia , SUM(total) AS Total
                                                     FROM citas WHERE fechaCita LIKE '%$fechaBuscar%'
@@ -317,7 +320,7 @@
                         else if ($informe == 8) {
                             $cnn = conectar_db();
                             $stmt = $cnn->prepare("SELECT MONTHNAME(fechaCita) AS Mes, SUM(total) AS Total
-                                                    FROM citas WHERE YEAR(fechaCita) = '2023'
+                                                    FROM citas WHERE (YEAR(fechaCita) = '2023' OR YEAR(fechaCita) = '2024')
                                                     GROUP BY Mes
                                                     ORDER BY Mes ASC");
                             $rows = $stmt->execute();

@@ -9,17 +9,14 @@
 
     if (isset($_REQUEST["codCita"])) {
         $codCita = $_REQUEST["codCita"];
-        //echo "CÓDIGO USUARIO QUE PIDE LA CITA: " . $codUsu;
     }
 
     if (isset($_SESSION["cusu"])) {
         $cusu = $_REQUEST["cusu"];
-        //echo "CÓDIGO USUARIO QUE PIDE LA CITA: " . $codUsu;
     }
 
     if (isset($_SESSION["tipo"])) {
         $tipo = $_REQUEST["tipo"];
-        //echo "CÓDIGO USUARIO QUE PIDE LA CITA: " . $codUsu;
     }
 
     if(isset($_REQUEST["tipo"])) {
@@ -50,6 +47,8 @@
     for($i=0;$i<count($datosTodasCitas) && $enc==0;$i++) {
         if($datosTodasCitas[$i] -> getCodCita() == $codCita) {
             $codUsuarioCita = $datosTodasCitas[$i] -> getCodUsuario();
+            $fechaCitaAux = $datosTodasCitas[$i]->getFechaCita();
+            $horaCitaAux = $datosTodasCitas[$i]->getHoraCita();
             $enc=1;
         }
     }
@@ -62,21 +61,21 @@
         }
     }
     
-
-   /* if (isset($_REQUEST["fecha"])) {
-        $fechaCita = $_REQUEST["fecha"];
-    }*/
-
     if(isset($_REQUEST["dia"]) && isset($_REQUEST["mes"]) && isset($_REQUEST["anyo"])) {
         $dia=$_REQUEST["dia"];
         $mes=$_REQUEST["mes"] + 1;
         $anyo=$_REQUEST["anyo"];
         $fechaCita = date("d/m/Y", strtotime($anyo . '/' . $mes . "/" . $dia));
-        //$fechaServicio = date("Y-m-d", strtotime($anyo . '-' . $mes . "-" . $dia));
+        if ($dia <= 9) {
+            $dia = "0" . $dia;
+        }
         $fechaServicio = $anyo . '-' . $mes . "-" . $dia;
-
-        //echo "LA FECHA ES: " . $fechaServicio;
     }
+
+    if(strcmp($fechaServicio, $fechaCitaAux) == 0) {
+        $horaCita = $horaCitaAux;
+    }
+    else $horaCita = "0:00";
 
     $datosServicios = array ();
     $datosServicios = llenarArrayServicios(1);
@@ -252,7 +251,7 @@
                                                 $cont++;
                                             }
                                         }
-
+                                        
                                         if ($cont == 0) {
                                             if (isset($_REQUEST["hora"]) && $horaInicio == $_REQUEST["hora"]) {
                                         ?>  
@@ -264,6 +263,11 @@
                                                 <option value="<?php echo $horaInicio;?>"><?php echo $horaInicio;?></option>
                                             <?php
                                             }
+                                        }
+                                        else if ($cont <> 0 && isset($horaCita) && $horaInicio == $horaCita && strcmp($fechaServicio, $fechaCitaAux) == 0) {
+                                        ?>
+                                            <option value="<?php echo $horaInicio;?>" selected><?php echo $horaInicio;?></option> 
+                                        <?php   
                                         }
                                         $array = explode(":", $horaInicio);
                                         $hora = intval($array[0]);

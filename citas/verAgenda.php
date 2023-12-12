@@ -67,6 +67,14 @@
     <section class="container-fluid">
         <div class="row">        
             <div class="col-sm-12 col-md-9 col-lg-10">
+                 <!-- MOSTRAMOS EL NOMBRE DEL USUARIO ELIMINADO.-->
+                 <?php 
+                if (isset($_REQUEST["nombreusuario"]) && (!empty($_REQUEST["nombreusuario"]))){
+                ?>
+                    <div class="smsOk"><b>La CITA del usuario  <?php echo $_REQUEST["nombreusuario"] ?> se ha borrado correctamente.</b></div><br><br>
+                <?php 
+                }
+                ?>
                 <div class="container-fluid">
   				    <div class="row">
                         <div class="col-md-6 text-center contenedor">
@@ -81,6 +89,7 @@
                                     $dia = "0" . $dia;
                                 }
                                 $fechaConsulta =  $dia . '/' . $mes . "/" . $year;
+                                $fecha =  $year . '-' . $mes . "-" . $dia;
                                 $fechaHoy = date("Y-m-d");
                                 echo '<h3 class="h3 text-center text-warning">CITAS DÍA:</h3>';
                                 echo '<h4 class="h4 text-center text-info">' . $fechaConsulta . '</h4><hr>';

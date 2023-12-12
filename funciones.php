@@ -65,6 +65,16 @@
         }
 
         //MODIFICAMOS PRIMERO LOS DATOS GENERALES DE LA CITA.
+        // MONTO LA FECHA CON 10 DIGITOS
+        $array = explode("-", $fechaServicio);
+        $year = intval($array[0]);
+        $mes = intval($array[1]);
+        $dia = intval($array[2]);
+        if ($dia <= 9) {
+            $dia = "0" . $dia;
+        }
+        $fechaConsulta =  $year . '-' . $mes . "-" . $dia; 
+        $fechaServicio = $fechaConsulta;
 
         $cnn = conectar_db();
         $stmt =$cnn->prepare("update citas SET fechaCita= :fechaCita, horaCita= :horaCita, total= :total where codCita= :codCita");
@@ -145,7 +155,7 @@
                                             <h6 class='h6 text-justify text-info'><strong>Detalles de Contacto del Centro</strong></h6><hr>
                                             <p class='text-justify'>Email: <strong><a href='mailto:info@beautyandshop.net'>info@beautyandshop.net</a></strong></p></p>
                                             <p class='text-justify'>Teléfono: <strong><a href='tel:676312536'>676 312 536</a></p></p>
-                                            <br><hr><h3 class='h3 text-center text-success'>GRACIAS POR CONFIAR EN BEAUTY AND SHOP</h3><hr><br></div><div class='col-xs-12 col-sm-2 col-md-2'></div></div>";
+                                            <br><hr><h3 class='h3 text-center text-success'>GRACIAS POR CONFIAR EN BEAUTY AND SHOP</h3><hr><br></div></div>";
 
             // MANDAMOS EL EMAIL CON LOS DATOS DE LA CITA.
             $datosCitas = [];
@@ -174,7 +184,7 @@
             }
 
             /* PREPARAMOS EL RESUMEN DE LA CITA RESERVADA */
-            $datosCita = '<div class="container text-center"><div class="row"><div class="col-xs-12 col-sm-2 col-md-2"></div><div class="col-xs-12 col-sm-8 col-md-8"><h2 class="h3 text-center text-warning">RESUMEN DE SU RESERVA</h2><hr><br>';
+            $datosCita = '<h2 class="h3 text-center text-warning">RESUMEN DE SU RESERVA</h2><hr><br>';
             $datosCita = $datosCita. "
             <div style='margin: 0 auto;' class='table-responsive text-center'>
             <table style='border 1px solid black;'>
@@ -196,7 +206,7 @@
                             $datosCita = $datosCita . '<td><strong>' . number_format(round($total, 2), 2, ",", ".") . ' €</strong></td>
                         </tr>
                     </tbody>
-                </table>';
+                </table></div>';
 
             /* ENVIAMOS EL EMAIL CON LA CITA MODIFICADA */
             
@@ -244,7 +254,7 @@
         else {
             $codCita = 1;
         }
-              
+        
         // AHORA VAMOS A OBTENER EL IMPORTE TOTAL DEL TICKET DE LA CITA.
         $i=0;
         $total=0;
@@ -254,7 +264,7 @@
             }
         }
 
-
+       
         $datosLinCita = '<br><h2 class="h3 text-center text-warning">SERVICIOS ELEGIDOS</h2><hr>';
         $datosLinCita = $datosLinCita. "
             <div style='margin: 0 auto' class='table-responsive text-center'>
@@ -266,9 +276,8 @@
                             <th>PRECIO</th>
                             <th>SUBTOTAL</th>
                         </tr>
-                        </thead>
-                    <tbody>
-                        <tr>";
+                    </thead>
+                    <tbody>";
         // AHORA VAMOS A GRABAR CADA UNA DE LAS LÍNEAS DEL SERVICIO.
         $numLinea = 1;
         $i=0;
@@ -279,21 +288,25 @@
                 $codServicio = $datosServicios[$i] -> getCodServicio();
                 $descripcionServicios = $descripcionServicios . $datosServicios[$i] -> getDescripcion() . "\n";
                 $datosLinCita = $datosLinCita. "<tr><td>" . $datosServicios[$i] -> getDescripcion() . "</td>";
-
+                
                 $unidades = 1;
                 $datosLinCita = $datosLinCita. "<td>" . $unidades . "</td>";
 
                 $precio = $datosServicios[$i] -> getPrecio();
                 $datosLinCita = $datosLinCita. "<td class='text-right'>" . number_format(round($precio, 2), 2, ",", ".") . " € </td>";
 
-                $datosLinCita = $datosLinCita. "<td class='text-right'><strong>" . number_format(round(($unidades * $precio), 2), 2, ",", ".") . " € </strong></td></td>";
-
-                $stmt = $cnn1->prepare("insert into lincitas values(:numLinea, :codCita, :codServicio, :unidades, :precio)");
+                $datosLinCita = $datosLinCita. "<td class='text-right'><strong>" . number_format(round(($unidades * $precio), 2), 2, ",", ".") . " € </strong></td></tr>";
+                
+                $stmt = $cnn1->prepare("insert into lincitas values (:numLinea, :codCita, :codServicio, :unidades, :precio)");
+                
                 $rows = $stmt->execute(array(":numLinea"=>$numLinea, ":codCita"=>$codCita, ":codServicio"=>$codServicio, ":unidades"=>$unidades, ":precio"=>$precio));
+                
                 $numLinea = $numLinea + 1;
+                
             }
         }
 
+        
         $datosLinCita = $datosLinCita. "</tbody></table>";
         $datosLinCita = $datosLinCita. "<hr><h6 class='h6 text-justify text-info'><strong>Ubicación Centro</strong></h6><hr>
                                         <p class='text-justify'>Beauty And Shop</p>
@@ -302,13 +315,24 @@
                                         <h6 class='h6 text-justify text-info'><strong>Detalles de Contacto del Centro</strong></h6><hr>
                                         <p class='text-justify'>Email: <strong>info@beautyandshop.net</strong></p></p>
                                         <p class='text-justify'>Teléfono: <strong>+34 676 312 36</p></p>
-                                        <br><hr><h3 class='h3 text-center text-success'>GRACIAS POR CONFIAR EN NOSOTROS</h3><hr><br></div><div class='col-xs-12 col-sm-2 col-md-2'></div></div>";
+                                        <br><hr><h3 class='h3 text-center text-success'>GRACIAS POR CONFIAR EN NOSOTROS</h3><hr><br></div><div class='col-xs-12 col-sm-2 col-md-2'></div></div>
+                                        <a href='/beautyandshop/index.php'><button class='btn btn-danger text-center' type='button' value='MENÚ PRINCIPAL'>MENÚ PRINCIPAL</button></a>";
 
-
+        // MONTO LA FECHA CON 10 DIGITOS
+        $array = explode("-", $fechaServicio);
+        $year = intval($array[0]);
+        $mes = intval($array[1]);
+        $dia = intval($array[2]);
+        if ($dia <= 9) {
+            $dia = "0" . $dia;
+        }
+        $fechaConsulta =  $year . '-' . $mes . "-" . $dia; 
+        $fechaServicio = $fechaConsulta;
+        
        // AHORA VAMOS A GRABAR LA CABECERA DEL SERVICIO.
         $activo = 1;
-        $stmt = $cnn->prepare("insert into citas values(:codCita, :codUsuario, :fechaPedido, :horaCita, :total, :activo)");
-        $rows = $stmt->execute(array(":codCita"=>$codCita, ":codUsuario"=>$cusu, ":fechaPedido"=>$fechaServicio, ":horaCita"=>$horaCita, ":total"=>$total, ":activo"=>$activo));
+        $stmt = $cnn->prepare("insert into citas values(:codCita, :codUsuario, :fechaCita, :horaCita, :total, :activo)");
+        $rows = $stmt->execute(array(":codCita"=>$codCita, ":codUsuario"=>$cusu, ":fechaCita"=>$fechaServicio, ":horaCita"=>$horaCita, ":total"=>$total, ":activo"=>$activo));
         if ($rows == 1) {
 
             // MANDAMOS EL EMAIL CON LOS DATOS DE LA CITA.
@@ -402,6 +426,7 @@
             return ($datosCita . $datosLinCita);
         }
     }
+
 
     function llenarArrayCitas($ordenar, $fecha) {
         $datosCitas = array ();
@@ -599,7 +624,17 @@
             
             <div style="margin-top:5px;" class="text-center">
                 <a target="_blank" href="/beautyandshop/admin/verUsuario.php?cusuv=' . $codUsuarioBuscar .'"><button style="margin-right:4px" class="btn btn-info">VER CLIENTE</button></a>';
-				if ($fechaAux >= $fechaHoy) {
+               // MONTO LA FECHA CON 10 DIGITOS
+                $array = explode("-", $fechaAux);
+                $year = intval($array[0]);
+                $mes = intval($array[1]);
+                $dia = intval($array[2]);
+                if ($dia <= 9) {
+                    $dia = "0" . $dia;
+                }
+                $fechaConsulta =  $year . '-' . $mes . "-" . $dia; 
+
+				if ($fechaConsulta >= $fechaHoy) {
                     $datosCita = $datosCita .
                     '<a target="_blank" href="/beautyandshop/citas/editarCita.php?ct=' . $codCitaBuscar .'"><button class="btn btn-success">MODIFICAR CITA</button></a>
                     <a href="/beautyandshop/citas/anularCita.php?ct=' . $codCitaBuscar .'"><button class="btn btn-danger">ANULAR CITA</button></a>';
@@ -690,7 +725,16 @@
             </div>
            
             <div style="margin-top:5px;" class="text-center">';
-                if ($fechaAux >= $fechaHoy) {
+                // MONTO LA FECHA CON 10 DIGITOS
+                $array = explode("-", $fechaAux);
+                $year = intval($array[0]);
+                $mes = intval($array[1]);
+                $dia = intval($array[2]);
+                if ($dia <= 9) {
+                    $dia = "0" . $dia;
+                }
+                $fechaConsulta =  $year . '-' . $mes . "-" . $dia; 
+                if ($fechaConsulta >= $fechaHoy) {
                     $datosCita = $datosCita .
                     '<a target="_blank" href="/beautyandshop/citas/editarCita.php?ct=' . $codCitaBuscar .'"><button class="btn btn-success">MODIFICAR CITA</button></a>
                     <a href="/beautyandshop/citas/anularCita.php?ct=' . $codCitaBuscar .'"><button class="btn btn-danger">ANULAR CITA</button></a>';
@@ -773,10 +817,20 @@
                         '</div><br>
                         <div class="text-center">
                             <a target="_blank" href="/beautyandshop/admin/verUsuario.php?cusuv=' . $codUsuarioBuscar . '"><button class="btn btn-info">VER CLIENTE</button></a>';
-                            if ($fechaAux >= $fechaHoy) {
+                            // MONTO LA FECHA CON 10 DIGITOS
+                            $array = explode("-", $fechaAux);
+                            $year = intval($array[0]);
+                            $mes = intval($array[1]);
+                            $dia = intval($array[2]);
+                            if ($dia <= 9) {
+                                $dia = "0" . $dia;
+                            }
+                            $fechaConsulta =  $year . '-' . $mes . "-" . $dia; 
+
+                            if ($fechaConsulta >= $fechaHoy) {
                                 $datosCita = $datosCita .
                                 '<a target="_blank" href="/beautyandshop/citas/editarCita.php?ct=' . $codCitaBuscar .'"><button style="margin-left:5px;"class="btn btn-success">MODIFICAR CITA</button></a>
-                                <a href="/beautyandshop/citas/anularCita.php?ct=' . $codCitaBuscar .'"><button class="btn btn-danger">ANULAR CITA</button></a>';
+                                <a href="/beautyandshop/citas/anularCita.php?fecha=' . $fechaAux . '&p=1&ct=' . $codCitaBuscar .'"><button class="btn btn-danger">ANULAR CITA</button></a>';
                             }
                         $datosCita = $datosCita . '
                         </div>
@@ -1612,7 +1666,7 @@
         }
     }
 
-    function mostrarUsuarios($datosUsuarios, $tipo){
+    function mostrarUsuarios($datosUsuarios, $tipo, $usuario){
         
         $datosUsuario = "<h1>LISTADO USUARIOS</h1>";
         $datosUsuario = $datosUsuario . "
@@ -1645,28 +1699,30 @@
 
             for($i=0;$i<count($datosUsuarios);$i++) {
                 $codUsuario = $datosUsuarios[$i]->getCodUsuario();
-                $datosUsuario = $datosUsuario . "<tr>";
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getNombre()}</td>"; 
-                if ($tipo == 1) {
-                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getTipoUsuario()}</td>";
-                }
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getDireccion()}</td>"; 
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getPoblacion()}</td>";
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getTelefono()}</td>";
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getEmail()}</td>";
-                $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getActivo()}</td>";
+                if ($usuario != $codUsuario) {
+                    $datosUsuario = $datosUsuario . "<tr>";
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getNombre()}</td>"; 
+                    if ($tipo == 1) {
+                        $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getTipoUsuario()}</td>";
+                    }
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getDireccion()}</td>"; 
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getPoblacion()}</td>";
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getTelefono()}</td>";
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getEmail()}</td>";
+                    $datosUsuario = $datosUsuario . "<td>{$datosUsuarios[$i]->getActivo()}</td>";
 
-                $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/admin/editarUsuario.php?cusumodificar=" . $codUsuario . "><img src='/beautyandshop/img/modificar.png' /></a></td>";
-                if ($tipo == 1) {
-                    $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/admin/borrarUsuario.php?cusudelete=" . $codUsuario . "><img src='/beautyandshop//img/borrar.png' /></a></td>";
-                }
-                
-                if ($datosUsuarios[$i]->getActivo() == 1) {
-                    $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/citas/addCitaUsuario.php?codu=" . $codUsuario . "><img src='/beautyandshop//img/citas.png' /></a></td>";
-                }
+                    $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/admin/editarUsuario.php?cusumodificar=" . $codUsuario . "><img src='/beautyandshop/img/modificar.png' /></a></td>";
+                    if ($tipo == 1) {
+                        $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/admin/borrarUsuario.php?cusudelete=" . $codUsuario . "><img src='/beautyandshop//img/borrar.png' /></a></td>";
+                    }
+                    
+                    if ($datosUsuarios[$i]->getActivo() == 1) {
+                        $datosUsuario = $datosUsuario . "<td><a href=/beautyandshop/citas/addCitaUsuario.php?codu=" . $codUsuario . "><img src='/beautyandshop//img/citas.png' /></a></td>";
+                    }
 
-                $datosUsuario = $datosUsuario . "</tr>";
-                $indice = $indice + 1;
+                    $datosUsuario = $datosUsuario . "</tr>";
+                    $indice = $indice + 1;
+                }
             }
             $datosUsuario = $datosUsuario . "</tbody></table></div>";
         return $datosUsuario;

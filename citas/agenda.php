@@ -53,8 +53,8 @@
     <link rel="stylesheet" href="/beautyandshop/css/myStiles.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleCitas.css">
     <link rel="stylesheet" href="/beautyandshop/css/styleFooter.css">
-    <link rel="stylesheet" type="text/css" href="css/styleAgenda.css">
-	<link rel="stylesheet" type="text/css" href="css/styleBotonUp.css">
+    <link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleAgenda.css">
+	<link rel="stylesheet" type="text/css" href="/beautyandshop/css/styleBotonUp.css">
    
     
 </head>
