@@ -81,6 +81,6 @@ prevNextIcon.forEach((icon) => {
         } else {
             date = new Date(); // pasar la fecha actual como valor de fecha
         }
-        generarCalendario(); // llamamos a la función renderCalendar
+        generarCalendario(); // llamamos a la función generarCalendario
     });
 });

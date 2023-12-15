@@ -27,7 +27,7 @@
 
 <html lang="es">
     <head>
-        <title>Zona USUARIOS. Beauty And Shop</title>
+        <title>Zona INFORMES. Beauty And Shop</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -145,10 +145,18 @@
                         }
                         else if ($informe == 2) {
                             $cnn = conectar_db();
-                            $stmt = $cnn->prepare("SELECT MONTHNAME(fechaPedido) AS Mes, SUM(total) AS Total
+                            /*$stmt = $cnn->prepare("SELECT MONTHNAME(fechaPedido) AS Mes, SUM(total) AS Total
                                                     FROM pedidos WHERE (YEAR(fechaPedido) = '2023' OR YEAR(fechaPedido) = '2024')
                                                     GROUP BY Mes
-                                                    ORDER BY Mes ASC");
+                                                    ORDER BY Mes ASC");*/
+
+                            $stmt = $cnn->prepare("SELECT Mes,A_2023,A_2024, A_2023+A_2024 AS Total
+                            FROM (SELECT MONTH(fechaPedido) AS Mes
+                            , SUM(IF(YEAR(fechaPedido)=2023,Total,0)) As 'A_2023'
+                            , SUM(IF(YEAR(fechaPedido)=2024,Total,0)) As 'A_2024'
+                            FROM pedidos
+                            WHERE YEAR(fechaPedido) between 2023 and 2024
+                            GROUP BY Mes) AS suma");
                             $rows = $stmt->execute();
                    
                             echo "<h2>Listado Importe Ventas por Meses</h2>";
@@ -157,11 +165,15 @@
                             echo "<thead>";
                             echo "<tr>";
                             echo "<th>MES</th>";
-                            echo "<th>IMPORTE</th>";
+                            echo "<th>2023</th>";
+                            echo "<th>2024</th>";
+                            echo "<th>TOTAL</th>";
                             echo "</tr></thead></tr><tbody>";
                             while($fila = $stmt->fetch()) {
                                 echo "<tr>";
                                 echo "<td>{$fila['Mes']}</td>"; 
+                                echo "<td>{$fila['A_2023']} €</td>";
+                                echo "<td>{$fila['A_2024']} €</td>";
                                 echo "<td>{$fila['Total']} €</td>"; 
                                 echo "</tr>";
                             }
@@ -296,7 +308,7 @@
                                                         
                             $cnn = conectar_db();
                             $stmt = $cnn->prepare("SELECT fechaCita AS dia , SUM(total) AS Total
-                                                    FROM citas WHERE fechaCita LIKE '%$fechaBuscar%'
+                                                    FROM citas WHERE activo = 1 AND fechaCita LIKE '%$fechaBuscar%'
                                                     GROUP BY dia
                                                     ORDER BY dia ASC");
                             $rows = $stmt->execute();
@@ -319,10 +331,17 @@
                         }
                         else if ($informe == 8) {
                             $cnn = conectar_db();
-                            $stmt = $cnn->prepare("SELECT MONTHNAME(fechaCita) AS Mes, SUM(total) AS Total
+                            /*$stmt = $cnn->prepare("SELECT MONTHNAME(fechaCita) AS Mes, SUM(total) AS Total
                                                     FROM citas WHERE (YEAR(fechaCita) = '2023' OR YEAR(fechaCita) = '2024')
                                                     GROUP BY Mes
-                                                    ORDER BY Mes ASC");
+                                                    ORDER BY Mes ASC");*/
+                            $stmt = $cnn->prepare("SELECT Mes,A_2023,A_2024, A_2023+A_2024 AS Total
+                                                    FROM (SELECT MONTH(fechaCita) AS Mes
+                                                    , SUM(IF(YEAR(fechaCita)=2023,Total,0)) As 'A_2023'
+                                                    , SUM(IF(YEAR(fechaCita)=2024,Total,0)) As 'A_2024'
+                                                    FROM citas
+                                                    WHERE activo = 1 AND YEAR(fechaCita) between 2023 and 2024
+                                                    GROUP BY Mes ORDER BY MES ASC) AS suma");
                             $rows = $stmt->execute();
                    
                             echo "<h2>Listado Cierres Caja por Meses</h2>";
@@ -331,11 +350,15 @@
                             echo "<thead>";
                             echo "<tr>";
                             echo "<th>MES</th>";
-                            echo "<th>IMPORTE</th>";
+                            echo "<th>2023</th>";
+                            echo "<th>2024</th>";
+                            echo "<th>TOTAL</th>";
                             echo "</tr></thead></tr><tbody>";
                             while($fila = $stmt->fetch()) {
                                 echo "<tr>";
                                 echo "<td>{$fila['Mes']}</td>"; 
+                                echo "<td>{$fila['A_2023']} €</td>";
+                                echo "<td>{$fila['A_2024']} €</td>";
                                 echo "<td>{$fila['Total']} €</td>"; 
                                 echo "</tr>";
                             }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-12-2023 a las 20:32:06
+-- Tiempo de generación: 15-12-2023 a las 20:26:14
 -- Versión del servidor: 8.0.32
 -- Versión de PHP: 7.4.33
 
@@ -40,7 +40,7 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`nombre`, `activo`, `codCatPadre`, `codigo`) VALUES
 ('FACIAL', 1, 0, 1),
-('DIA', 0, 1, 2),
+('DIA', 1, 1, 2),
 ('NOCHE', 1, 1, 3),
 ('CORPORAL', 1, 0, 4),
 ('BODY MILK', 1, 4, 5),
@@ -49,7 +49,7 @@ INSERT INTO `categorias` (`nombre`, `activo`, `codCatPadre`, `codigo`) VALUES
 ('MANOS', 1, 0, 8),
 ('PIES', 1, 0, 9),
 ('ESMALTES', 1, 0, 10),
-('PINTALABIOS', 0, 0, 11),
+('PINTALABIOS', 1, 0, 11),
 ('SPA', 0, 4, 12);
 
 -- --------------------------------------------------------
@@ -107,7 +107,7 @@ INSERT INTO `citas` (`codCita`, `codUsuario`, `fechaCita`, `horaCita`, `total`, 
 (33, 3, '2023-12-07', '11:30', 60.00, 1),
 (34, 12, '2023-12-06', '13:30', 27.00, 1),
 (35, 12, '2023-12-08', '11:00', 43.00, 1),
-(36, 12, '2023-12-21', '12:00', 65.00, 1),
+(36, 1, '2023-12-21', '12:00', 65.00, 1),
 (37, 4, '2023-12-14', '10:00', 30.00, 1),
 (38, 4, '2023-12-15', '11:00', 33.00, 0),
 (39, 5, '2023-12-15', '12:00', 20.00, 1),
@@ -129,7 +129,13 @@ INSERT INTO `citas` (`codCita`, `codUsuario`, `fechaCita`, `horaCita`, `total`, 
 (55, 2, '2023-12-21', '13:00', 50.00, 1),
 (56, 2, '2023-12-22', '11:30', 30.00, 1),
 (57, 2, '2023-12-27', '16:00', 21.00, 1),
-(58, 1, '2023-12-27', '10:30', 35.00, 1);
+(58, 1, '2023-12-27', '10:30', 35.00, 1),
+(59, 12, '2023-12-23', '13:30', 45.00, 0),
+(60, 3, '2023-12-21', '15:00', 41.00, 0),
+(61, 12, '2023-12-27', '12:00', 33.00, 0),
+(62, 12, '2023-12-27', '10:00', 30.00, 0),
+(63, 12, '2023-12-27', '13:30', 38.00, 0),
+(64, 3, '2023-12-27', '12:00', 38.00, 1);
 
 -- --------------------------------------------------------
 
@@ -232,6 +238,12 @@ INSERT INTO `lincitas` (`numLinea`, `codCita`, `codServicio`, `unidades`, `preci
 (1, 56, 10, 1, 30.00),
 (1, 57, 1, 1, 3.00),
 (1, 58, 13, 1, 35.00),
+(1, 59, 5, 1, 12.00),
+(1, 60, 1, 1, 3.00),
+(1, 61, 1, 1, 3.00),
+(1, 62, 10, 1, 30.00),
+(1, 63, 1, 1, 3.00),
+(1, 64, 8, 1, 18.00),
 (2, 1, 2, 1, 3.00),
 (2, 3, 7, 1, 15.00),
 (2, 5, 6, 1, 10.00),
@@ -262,6 +274,11 @@ INSERT INTO `lincitas` (`numLinea`, `codCita`, `codServicio`, `unidades`, `preci
 (2, 50, 3, 1, 18.00),
 (2, 53, 6, 1, 10.00),
 (2, 57, 3, 1, 18.00),
+(2, 59, 1, 1, 3.00),
+(2, 60, 8, 1, 18.00),
+(2, 61, 10, 1, 30.00),
+(2, 63, 13, 1, 35.00),
+(2, 64, 9, 1, 20.00),
 (3, 5, 2, 1, 3.00),
 (3, 6, 9, 1, 20.00),
 (3, 8, 9, 1, 20.00),
@@ -273,6 +290,8 @@ INSERT INTO `lincitas` (`numLinea`, `codCita`, `codServicio`, `unidades`, `preci
 (3, 29, 9, 1, 20.00),
 (3, 34, 4, 1, 12.00),
 (3, 35, 6, 1, 10.00),
+(3, 59, 10, 1, 30.00),
+(3, 60, 9, 1, 20.00),
 (4, 5, 8, 1, 18.00),
 (4, 14, 8, 1, 18.00),
 (4, 19, 3, 1, 18.00),
@@ -309,6 +328,7 @@ INSERT INTO `linpedidos` (`numLinea`, `numPedido`, `codProducto`, `unidades`, `p
 (1, 8, '1003', 1, 28.00),
 (1, 9, '1004', 2, 79.00),
 (1, 10, '2003', 1, 21.00),
+(1, 11, '1001', 1, 35.42),
 (2, 2, '1002', 1, 53.90),
 (2, 3, '6002', 1, 24.61),
 (2, 4, '8002', 3, 16.35),
@@ -316,6 +336,7 @@ INSERT INTO `linpedidos` (`numLinea`, `numPedido`, `codProducto`, `unidades`, `p
 (2, 6, '8002', 4, 21.80),
 (2, 7, '8001', 1, 43.20),
 (2, 10, '5002', 3, 37.35),
+(2, 11, '6001', 2, 40.76),
 (3, 2, '7001', 1, 9.99);
 
 -- --------------------------------------------------------
@@ -344,9 +365,10 @@ INSERT INTO `pedidos` (`numPedido`, `fechaPedido`, `codUsuario`, `estado`, `tota
 (5, '2023-11-25', 5, 'ENVIADO', 73.10),
 (6, '2023-11-25', 12, 'RECIBIDO', 42.80),
 (7, '2023-12-01', 2, 'RECIBIDO', 86.76),
-(8, '2023-12-05', 12, 'RECIBIDO', 28.00),
+(8, '2023-12-05', 12, 'ENVIADO', 28.00),
 (9, '2023-12-04', 1, 'RECIBIDO', 79.00),
-(10, '2023-12-01', 3, 'RECIBIDO', 58.35);
+(10, '2023-12-01', 3, 'RECIBIDO', 58.35),
+(11, '2023-12-13', 8, 'RECIBIDO', 76.18);
 
 -- --------------------------------------------------------
 
@@ -389,6 +411,7 @@ INSERT INTO `productos` (`codigo`, `nombre`, `descripcion`, `imagen`, `precio`, 
 ('6001', 'CREMA PARA PIES NUTRITIVA. ORGANIC KITCHEN', 'UNA SENSACIÃ³N DE FIABILIDAD Y APOYO PARA SUS MANOS Y CODOS. NUTRICIÃ³N EXTRA PARA PIELES SECAS QUE REQUIEREN CUIDADOS ESPECIALES. LA MANTECA DE KARITÃ© REPARA PROFUNDAMENTE LA PIEL Y LA DEJA SUAVE Y TERSA.', '../Images/6001.png', 21.45, 5.00, 1, 9),
 ('6002', 'CREMA DE PIES KARITÃ©', 'IDEAL PARA\r\n- PIEL SECA A MUY SECA\r\n- NUTRE Y REDUCE LAS ASPEREZAS DE LOS PIES\r\n- AYUDA A CALMAR INMEDIATAMENTE LOS PIES SECOS A MUY SECOS\r\nTAMAÃ±O 150 ML', '../Images/6002.png', 28.95, 15.00, 1, 9),
 ('6003', 'GEL FRÃ­O CALMANTE DE PIES. REFRESCA TUS PIES', 'EL GEL \"EFECTO HIELO\" ALIVIA LOS PIES Y PIERNAS CANSADAS.CON LAVANDA BIO FRANCESA, SELECCIONADA POR SUS PROPIEDADES CALMANTES Y PROTECTORAS.\r\nAPLICAR 2 VECES AL DÃ­A SOBRE LOS PIES MASAJEANDO Y RETOMAR A LO LARGO DE LAS PIERNAS.\r\n', '../Images/6003.png', 35.25, 0.00, 1, 9),
+('6004', 'PRODUCTO BORRAR', 'PRODUCTOS PARA BORRAR', '../Images/Captura de pantalla (1).png', 24.75, 0.00, 0, 8),
 ('7001', 'KIKO MILANO 3D HYDRA LIPGLOSS 17', 'BRILLO DE LABIOS EMOLIENTE EFECTO 3D PARA UN RESULTADO BRILLANTE.\r\nLA TEXTURA, SUAVE Y SENSORIAL, SE FUNDE SOBRE LOS LABIOS DEJÃ¡NDOLOS LISOS Y BRILLANTES, LA TEXTURA NO ES PEGAJOSA Y OFRECE UNA LARGA DURACIÃ³N.', '../Images/7001.png', 9.99, 0.00, 1, 11),
 ('7002', 'ESSENCE  BRILLO DE LABIOS VOLUMINIZADOR EXTREME SHINE', 'EL BRILLO DE LABIOS EXTREME SHINE VOLUME ES IMPRESCINDIBLE PARA UNOS LABIOS PRECIOSOS CON UN ASPECTO MOJADO, SIN SILICONAS, PARTÃ­CULAS DE MICROPLÃ¡STICOS, ALCOHOL NI ACEITE. Y ESO NO ES TODO: LA GAMA OFRECE TRES BENEFICIOS DIFERENTES.', '../Images/7002.png', 9.95, 0.00, 1, 11),
 ('7003', 'DIOR ROUGE DIOR FOREVERMATE. MATE ULTRAPIGMENTADO', 'ROUGE DIOR FOREVER ES LA BARRA DE LABIOS DIOR QUE NO TRANSFIERE CON 16 HORAS* DE DURACIÃ³N, QUE COMBINA COMODIDAD EFECTO SEGUNDA PIEL CON UNA FÃ³RMULA CONCENTRADA EN TRATAMIENTO FLORAL.', '../Images/dior.png', 48.00, 15.00, 1, 11),
@@ -467,15 +490,15 @@ INSERT INTO `usuarios` (`codUsuario`, `dni`, `clave`, `email`, `nombre`, `direcc
 (1, '03759666V', '$2y$10$GlwDu7i/G5RoRhV7yVzfv.uP3bxBoAcHLLA5Py9AwEh1UVSJbgxPW', 'vicentevaquerog@gmail.com', 'VICENTE VAQUERO PEREZ', 'C/ ANTONIO MORA FERRANDEZ, NÂº 45', '48001', 'MADRID', 'MADRID', '965420686', 3, 1),
 (2, '11111111H', '$2y$10$TWNUt9Y6diIPubftohDoW.lpjxZCcMgE.nfozMOHHPpOzI4972wpu', 'anagarcia@gmail.com', 'ANA GARCIA BAUTISTA', 'C/ GREGORIO MARAÃ‘ON, NÂº 125', '32001', 'VALENCIA', 'VALENCIA', '965420686', 2, 1),
 (3, '22222222J', '$2y$10$.Rn4TikFqGiBjXNmo88duufBjaVDyFzYp57L2UQ4pXWkfzU.IKhju', 'merchequesada@hotmail.com', 'MERCHE QUESADA IRLES', 'C/ RIO TURIA, NÂº 24 - 5Âª PLANTA', '48002', 'ALBACETE', 'ALBACETE', '666789218', 3, 1),
-(4, '33490565N', '$2y$10$BzvrVGBxIsJpcIERxcGk9OU9AkofjWwmt41kINQKyolrHfMcC6ZK6', 'svaquerogarcia@gmail.com', 'SERGIO VAQUERO GARCIA', 'C/ HILARION ESLAVA, NÂº 70', '03204', 'ELCHE', 'ALICANTE', '676312536', 1, 1),
+(4, '33490565N', '$2y$10$BzvrVGBxIsJpcIERxcGk9OU9AkofjWwmt41kINQKyolrHfMcC6ZK6', 'svg26@msn.com', 'SERGIO VAQUERO GARCIA', 'C/ HILARION ESLAVA, NÂº 70', '03204', 'ELCHE', 'ALICANTE', '676312536', 1, 1),
 (5, '45568550F', '$2y$10$8DfgwlNNoX9Umcyo4MlSg.gAct35K.qrIc8dTPNlPnFG0EKH4kOX2', 'jorgealedo@hotmail.com', 'JORGE ALEDO TERRES         ', ' C/ BARCELONA, NÂº 125', '08006', 'BARCELONA', 'BARCELONA', '657067289', 3, 1),
 (7, '', '$2y$10$52OMs2.1MizwJDDq5mdDsefeoJI1QM.mRwXBWvLt54EFujXntNou6', 'mcarmen@gmail.com', 'MÂª CARMEN RUFIAS LIMORTE', '', '', '', '', '663455023', 3, 1),
-(8, '', '$2y$10$RioGdN32r/9yULht/OOoL.LRoDbCNXRljDSiBVIKe8BGEVhbo1LCu', 'julian@gmail.com', 'JULIAN GARCIA NAVAS-GARCIA', '', '', '', '', '966633700', 3, 1),
-(9, '74242772Z', '$2y$10$SN7UFXFUnOddvCijCzoZi.W3XUeaVr4jy9HS3Y8ngQ4lswXGTPZoa', 'alejandro.oliveros@hotmail.com', 'ALEJANDRO OLIVEROS PINTO', 'CALLE RÃ­O DANUBIO, URB. ALTOS DEL LIMONAR', '03184', 'TORREVIEJA', 'ALICANTE', '658999326', 3, 0),
+(8, '', '$2y$10$RioGdN32r/9yULht/OOoL.LRoDbCNXRljDSiBVIKe8BGEVhbo1LCu', 'julian@gmail.com', 'JULIAN GARCIA NAVAS-GARCIA', 'C/ AGUA, NÂº 20', '03349', 'SAN ISIDRO', 'ALICANTE', '966633700', 3, 1),
+(9, '74242772Z', '$2y$10$SN7UFXFUnOddvCijCzoZi.W3XUeaVr4jy9HS3Y8ngQ4lswXGTPZoa', 'alejandro.fernandez@hotmail.com', 'ALEJANDRO FERNANDEZ RUTZ', 'CALLE RÃ­O DANUBIO, URB. ALTOS DEL LIMONAR', '03184', 'TORREVIEJA', 'ALICANTE', '658999326', 3, 0),
 (10, '45568550F', '$2y$10$nOcb6egOlQGsuIxQv3qymu/fzR2A.fY1iFWlPyYNpvrhuu8Dvk0HG', 'jorgealedo@hotmail.cm', 'JORGE ALEDO ', 'ESLAVA 70 4', '03204', 'ELCHE', 'ALICANTE', '657067289', 3, 0),
 (11, '04342837T', '$2y$10$rNsV7JOIjrDdHXdzaleWF.guoTcMvgyx/qSxon.oAPoX47LPTxHW6', 'juanarbujas@gmail.com', 'JUANJO TORRES', 'CALLE ELDA 36', '03013', 'ALICANTE ', 'ALICANTE ', '683479296', 3, 1),
-(12, '33490565N', '$2y$10$622ZOP6FtbgWF16IrYQIuuc9M/5lwJxB754R50mEteAEwC9unBc8a', 'svg26@msn.com', 'SERGIO GARCIA PRIOR', 'AVDA. DE  ORIHUELA, NÂº 125 - 1Âª PLANTA', '03201', 'ELCHE', 'ALICANTE', '662502700', 3, 1),
-(13, '', '$2y$10$o9BG244wUwBZ.PTCdb0pXOk3zOfTDhgd.VntMdx3omL5AwG8kZjza', 'cristg75@gmail.com', 'CAMILA SERRANO VAZQUEZ', '', '', '', '', '666123456', 3, 1);
+(12, '33490565N', '$2y$10$622ZOP6FtbgWF16IrYQIuuc9M/5lwJxB754R50mEteAEwC9unBc8a', 'svaquerogarcia@gmail.com', 'SERGIO GARCIA PRIOR', 'AVDA. DE  ORIHUELA, NÂº 125 - 1Âª PLANTA', '03201', 'ELCHE', 'ALICANTE', '662502700', 3, 1),
+(13, '', '$2y$10$o9BG244wUwBZ.PTCdb0pXOk3zOfTDhgd.VntMdx3omL5AwG8kZjza', 'cristg75@gmail.com', 'CAMILA SERRANO VAZQUEZ', '', '', '', '', '666123456', 3, 0);
 
 --
 -- Índices para tablas volcadas
